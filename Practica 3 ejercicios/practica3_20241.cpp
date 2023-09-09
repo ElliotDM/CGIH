@@ -499,167 +499,147 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, 1.1f, -6.5f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, 70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		////////////////////////////////////////////////////////////////////////////
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.3f, 0.0f, -7.2f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, 70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -6.5f));
-		//model = glm::rotate(model, 160 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, 70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-0.3f, 0.0f, -6.0f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, 70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 1.3f, -6.6f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		//////////////////////////////////////////////////////////////////////////////
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(1.2f, -1.3f, -7.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(-0.5f, 0.0f, -6.2f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.6f, -1.3f, -7.0f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		//model = glm::rotate(model, 30 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(-0.6f, 0.0f, -6.7f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, -1.3f, -6.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.1f, 0.0f, -7.2f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
 
+		//////////////////////////////////////////////////////////////////////////////
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(-1.2f, -1.3f, -5.6f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-0.6f, -1.3f, -6.0f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		//model = glm::rotate(model, 30 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(-1.2f, -1.3f, -6.2f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-1.2f, -1.3f, -5.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(-0.7f, -1.3f, -6.8f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
-		// Cara lateral derecha
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(-0.7f, -1.3f, -7.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(-0.2f, -1.3f, -7.6f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
+
+		//// Cara lateral derecha
 		color = glm::vec3(0.0f, 1.0f, 0.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, 1.1f, -6.5f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, -70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		////////////////////////////////////////////////////////////////////////////
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.3f, 0.0f, -7.2f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, -70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -6.5f));
-		//model = glm::rotate(model, 160 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, -70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		meshList[0]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-0.3f, 0.0f, -6.0f));
-		//model = glm::rotate(model, -20 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, -70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 1.3f, -6.6f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		//////////////////////////////////////////////////////////////////////////////
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(1.2f, -1.3f, -7.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, -6.2f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.6f, -1.3f, -7.0f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		//model = glm::rotate(model, 30 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(0.6f, 0.0f, -6.7f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(0.0f, -1.3f, -6.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-0.1f, 0.0f, -7.2f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
 
+		//////////////////////////////////////////////////////////////////////////////
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(1.2f, -1.3f, -5.6f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-0.6f, -1.3f, -6.0f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		//model = glm::rotate(model, 30 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		model = glm::translate(model, glm::vec3(1.2f, -1.3f, -6.2f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::translate(model, glm::vec3(-1.2f, -1.3f, -5.5f));
-		//model = glm::rotate(model, -10 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.7f, -1.3f, -6.8f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
 
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(0.7f, -1.3f, -7.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[0]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(0.2f, -1.3f, -7.6f));
+		model = glm::rotate(model, -120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[0]->RenderMesh();
 
