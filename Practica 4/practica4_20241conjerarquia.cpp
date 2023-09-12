@@ -22,7 +22,6 @@
 //tecla R: Rotar sobre el eje Y
 //tecla T: Rotar sobre el eje Z
 
-
 using std::vector;
 
 //Dimensiones de la ventana
@@ -39,9 +38,6 @@ vector<Shader>shaderList;
 static const char* vShader = "shaders/shader.vert";
 static const char* fShader = "shaders/shader.frag";
 Sphere sp = Sphere(1.0, 20, 20); //recibe radio, slices, stacks
-
-
-
 
 void CrearCubo()
 {
@@ -271,8 +267,6 @@ void CrearPiramideCuadrangular()
 	meshList.push_back(piramide);
 }
 
-
-
 void CreateShaders()
 {
 	Shader *shader1 = new Shader();
@@ -280,7 +274,6 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 
 }
-
 
 int main()
 {
@@ -295,8 +288,6 @@ int main()
 	CrearPiramideCuadrangular();//índice 4 en MeshList
 	CreateShaders();
 	
-	
-
 	/*Cámara se usa el comando: glm::lookAt(vector de posición, vector de orientación, vector up));
 	En la clase Camera se reciben 5 datos:
 	glm::vec3 vector de posición,
@@ -310,7 +301,6 @@ int main()
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.3f, 0.3f);
 
-	
 	GLuint uniformProjection = 0;
 	GLuint uniformModel = 0;
 	GLuint uniformView = 0;
@@ -329,7 +319,6 @@ int main()
 
 	while (!mainWindow.getShouldClose())
 	{
-		
 		GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
@@ -356,6 +345,16 @@ int main()
 		model = glm::mat4(1.0);
 		//AQUÍ SE DIBUJA LA CABINA, LA BASE, LAS 4 LLANTAS
 
+		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(8.0f, 4.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 0.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[0]->RenderMesh();
+
+
+		
+		model = glm::mat4(1.0);
 		// SE EMPIEZA EL DIBUJO DEL BRAZO
 		//articulación 1
 		model = glm::translate(model, glm::vec3(0.0f, 6.0f, -4.0f));
@@ -363,7 +362,7 @@ int main()
 		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion1()), glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		//primer brazo que conecta con la cabina
-		// //Traslación inicial para posicionar en -Z a los objetos
+		//Traslación inicial para posicionar en -Z a los objetos
 		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
 		//otras transformaciones para el objeto
 		model = glm::translate(model, glm::vec3(-1.0f, 2.0f, 0.0f));
@@ -379,29 +378,28 @@ int main()
 		color = glm::vec3(1.0f, 0.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
 		meshList[0]->RenderMesh(); //dibuja cubo, pirámide triangular, pirámide base cuadrangular
-
 		//para descartar la escala que no quiero heredar se carga la información de la matrix auxiliar
 		model = modelaux;
+
 		//articulación 2
 		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion2()), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
+		
 		//dibujar una pequeña esfera
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		sp.render();
-
 		model = modelaux;
+		
 		//segundo brazo
 		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
-
 		modelaux = model;
 		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		color = glm::vec3(0.0f, 1.0f, 0.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
 		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
-
 		model = modelaux;
 
 		//articulación 3 extremo derecho del segundo brazo
@@ -409,45 +407,45 @@ int main()
 		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion3()), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
 
+		//dibujar una pequeña esfera
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		sp.render();
+		model = modelaux;
+
+		// instancias para completar el brazo y  la cabina 
+		//tercer brazo
+		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(1.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		model = modelaux;
+
+		//articulación 4 extremo derecho del segundo brazo
+		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion4()), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelaux = model;
 
 		//dibujar una pequeña esfera
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		sp.render();
 		model = modelaux;
-		
-		// instancias para completar el brazo y  la cabina 
-		
-		// tercer brazo
-		model = glm::translate(model, glm::vec3(2.0f, -0.5f, 0.0f));
-		modelaux = model;
-		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(170.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-		color = glm::vec3(1.0f, 0.0f, 1.0f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-		meshList[0]->RenderMesh();
 
-		model = modelaux;
-		// cabina
-		model = glm::translate(model, glm::vec3(1.5f, -2.0f, 0.0f));
+		//cabina
+		model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(25.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-		color = glm::vec3(0.0f, 1.0f, 0.0f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-		meshList[0]->RenderMesh();
-
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
 		model = modelaux;
-		// articulacion
-		model = glm::translate(model, glm::vec3(-0.5f, 2.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion3()), glm::vec3(0.0f, 1.0f, 0.0f));
-		modelaux = model;
 
 		glUseProgram(0);
 		mainWindow.swapBuffers();
