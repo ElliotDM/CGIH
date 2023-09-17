@@ -283,7 +283,7 @@ int main()
 
 	CrearCubo();//índice 0 en MeshList
 	CrearPiramideTriangular();//índice 1 en MeshList
-	CrearCilindro(5, 1.0f);//índice 2 en MeshList
+	CrearCilindro(20, 1.0f);//índice 2 en MeshList
 	CrearCono(25, 2.0f);//índice 3 en MeshList
 	CrearPiramideCuadrangular();//índice 4 en MeshList
 	CreateShaders();
@@ -346,14 +346,62 @@ int main()
 		//AQUÍ SE DIBUJA LA CABINA, LA BASE, LAS 4 LLANTAS
 
 		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -4.0f));
-		model = glm::scale(model, glm::vec3(8.0f, 4.0f, 4.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		color = glm::vec3(0.0f, 0.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
 		meshList[0]->RenderMesh();
 
+		// Base
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 2.5f, -4.0f));
+		model = glm::scale(model, glm::vec3(4.0f, 3.0f, 4.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[4]->RenderMesh();
 
-		
+		// Ruedas
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(3.0f, 1.0f, -1.5f));
+		model = glm::rotate(model, glm::radians(mainWindow.getrueda1()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.66f, 0.66f, 0.66f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(3.0f, 1.0f, -6.5f));
+		model = glm::rotate(model, glm::radians(mainWindow.getrueda2()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.66f, 0.66f, 0.66f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -1.5f));
+		model = glm::rotate(model, glm::radians(mainWindow.getrueda3()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.66f, 0.66f, 0.66f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -6.5f));
+		model = glm::rotate(model, glm::radians(mainWindow.getrueda4()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.66f, 0.66f, 0.66f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+
 		model = glm::mat4(1.0);
 		// SE EMPIEZA EL DIBUJO DEL BRAZO
 		//articulación 1
@@ -425,7 +473,7 @@ int main()
 		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
 		model = modelaux;
 
-		//articulación 4 extremo derecho del segundo brazo
+		//articulación
 		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion4()), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelaux = model;
@@ -452,6 +500,3 @@ int main()
 	}
 	return 0;
 }
-
-	
-		
