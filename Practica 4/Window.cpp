@@ -20,6 +20,13 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	articulacion2 = 0.0f;
 	articulacion3 = 0.0f;
 	articulacion4 = 0.0f;
+	articulacion4 = 0.0f;
+	articulacion5 = 0.0f;
+	articulacion6 = 0.0f;
+	articulacion7 = 0.0f;
+	articulacion8 = 0.0f;
+	cola1 = 0.0f;
+	cola2 = 0.0f;
 	
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -43,7 +50,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica XX: Nombre de la práctica", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Practica 04: Modelado Jerarquico", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -127,7 +134,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->articulacion1 += 10.0;
 	}
-
 	if (key == GLFW_KEY_G)
 	{
 		theWindow->articulacion2 += 10.0;
@@ -142,19 +148,33 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_K)
 	{
-		theWindow->rueda1 += 10.0;
+		theWindow->articulacion5 += 10.0;
 	}
 	if (key == GLFW_KEY_L)
 	{
-		theWindow->rueda2 += 10.0;
+		theWindow->articulacion6 += 10.0;
 	}
 	if (key == GLFW_KEY_N)
 	{
-		theWindow->rueda3 += 10.0;
+		theWindow->articulacion7 += 10.0;
 	}
 	if (key == GLFW_KEY_M)
 	{
-		theWindow->rueda4 += 10.0;
+		theWindow->articulacion8 += 10.0;
+	}
+	if (key == GLFW_KEY_C)
+	{
+		if (theWindow->cola1 >= -20.0)
+		{
+			theWindow->cola1 -= 5.0;
+		}
+	}
+	if (key == GLFW_KEY_V)
+	{
+		if (theWindow->cola2 <= 20.0)
+		{
+			theWindow->cola2 += 5.0;
+		}
 	}
 
 

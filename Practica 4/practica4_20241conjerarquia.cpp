@@ -338,161 +338,377 @@ int main()
 		uniformView = shaderList[0].getViewLocation();
 		uniformColor = shaderList[0].getColorLocation();
 		
-		// Creando el brazo de una grúa
-		//articulacion1 hasta articulación5 sólo son puntos de rotación o articulación, en este caso no dibujaremos esferas que los representen
-				
-		//para reiniciar la matriz de modelo con valor de la matriz identidad
-		model = glm::mat4(1.0);
-		//AQUÍ SE DIBUJA LA CABINA, LA BASE, LAS 4 LLANTAS
+		//// 1. Dibujar Grua
 
-		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -4.0f));
-		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.0f, 0.0f, 1.0f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[0]->RenderMesh();
+		//// Creando el brazo de una grúa
+		////articulacion1 hasta articulación5 sólo son puntos de rotación o articulación, en este caso no dibujaremos esferas que los representen
+		//		
+		////para reiniciar la matriz de modelo con valor de la matriz identidad
+		////AQUÍ SE DIBUJA LA CABINA, LA BASE, LAS 4 LLANTAS
 
-		// Base
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 2.5f, -4.0f));
-		model = glm::scale(model, glm::vec3(4.0f, 3.0f, 4.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.0f, 1.0f, 1.0f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[4]->RenderMesh();
+		//// Base
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(0.0f, 4.0f, -4.0f));
+		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.0f, 0.0f, 1.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		//meshList[0]->RenderMesh();
 
-		// Ruedas
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(3.0f, 1.0f, -1.5f));
-		model = glm::rotate(model, glm::radians(mainWindow.getrueda1()), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.66f, 0.66f, 0.66f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[2]->RenderMeshGeometry();
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(0.0f, 2.5f, -4.0f));
+		//model = glm::scale(model, glm::vec3(4.0f, 3.0f, 4.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.0f, 1.0f, 1.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		//meshList[4]->RenderMesh();
 
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(3.0f, 1.0f, -6.5f));
-		model = glm::rotate(model, glm::radians(mainWindow.getrueda2()), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.66f, 0.66f, 0.66f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[2]->RenderMeshGeometry();
+		//// Ruedas
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(3.0f, 1.0f, -1.5f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion5()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.66f, 0.66f, 0.66f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[2]->RenderMeshGeometry();
 
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -1.5f));
-		model = glm::rotate(model, glm::radians(mainWindow.getrueda3()), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.66f, 0.66f, 0.66f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[2]->RenderMeshGeometry();
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(3.0f, 1.0f, -6.5f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion6()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.66f, 0.66f, 0.66f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[2]->RenderMeshGeometry();
 
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -6.5f));
-		model = glm::rotate(model, glm::radians(mainWindow.getrueda4()), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(0.66f, 0.66f, 0.66f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[2]->RenderMeshGeometry();
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -1.5f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion7()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.66f, 0.66f, 0.66f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[2]->RenderMeshGeometry();
 
-		model = glm::mat4(1.0);
-		// SE EMPIEZA EL DIBUJO DEL BRAZO
-		//articulación 1
-		model = glm::translate(model, glm::vec3(0.0f, 6.0f, -4.0f));
-		//rotación alrededor de la articulación que une con la cabina
-		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion1()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(-2.0f, 1.0f, -6.5f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion8()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(2.0f, 1.0f, 2.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.66f, 0.66f, 0.66f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[2]->RenderMeshGeometry();
+
+		//model = glm::mat4(1.0);
+		//// SE EMPIEZA EL DIBUJO DEL BRAZO
+		////articulación 1
+		//model = glm::translate(model, glm::vec3(0.0f, 6.0f, -4.0f));
+		////rotación alrededor de la articulación que une con la cabina
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion1()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//
+		////primer brazo que conecta con la cabina
+		////Traslación inicial para posicionar en -Z a los objetos
+		////model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+		////otras transformaciones para el objeto
+		//model = glm::translate(model, glm::vec3(-1.0f, 2.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(135.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//modelaux = model;
+		//model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
+		//
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));		
+		////la línea de proyección solo se manda una vez a menos que en tiempo de ejecución
+		////se programe cambio entre proyección ortogonal y perspectiva
+		//glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		//glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		//color = glm::vec3(1.0f, 0.0f, 1.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[0]->RenderMesh(); //dibuja cubo, pirámide triangular, pirámide base cuadrangular
+		////para descartar la escala que no quiero heredar se carga la información de la matrix auxiliar
+		//model = modelaux;
+
+		////articulación 2
+		//model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion2()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//modelaux = model;
+		//
+		////dibujar una pequeña esfera
+		//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//sp.render();
+		//model = modelaux;
+		//
+		////segundo brazo
+		//model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+		//modelaux = model;
+		//model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		//model = modelaux;
+
+		////articulación 3 extremo derecho del segundo brazo
+		//model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion3()), glm::vec3(0.0f, 0.0f, 1.0f));
+		//modelaux = model;
+
+		////dibujar una pequeña esfera
+		//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//sp.render();
+		//model = modelaux;
+
+		//// instancias para completar el brazo y  la cabina 
+		////tercer brazo
+		//model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//modelaux = model;
+		//model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(1.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		//model = modelaux;
+
+		////articulación
+		//model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion4()), glm::vec3(0.0f, 1.0f, 0.0f));
+		//modelaux = model;
+
+		////dibujar una pequeña esfera
+		//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//sp.render();
+		//model = modelaux;
+
+		////cabina
+		//model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(25.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//modelaux = model;
+		//model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.5f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//color = glm::vec3(1.0f, 0.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		//meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		//model = modelaux;
+
+		// 2. Dibujar mascota
 		
-		//primer brazo que conecta con la cabina
-		//Traslación inicial para posicionar en -Z a los objetos
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
-		//otras transformaciones para el objeto
-		model = glm::translate(model, glm::vec3(-1.0f, 2.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(135.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelaux = model;
-		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
-		
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));		
-		//la línea de proyección solo se manda una vez a menos que en tiempo de ejecución
-		//se programe cambio entre proyección ortogonal y perspectiva
+		// Cuerpo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 2.5f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-		color = glm::vec3(1.0f, 0.0f, 1.0f);
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[0]->RenderMesh(); //dibuja cubo, pirámide triangular, pirámide base cuadrangular
-		//para descartar la escala que no quiero heredar se carga la información de la matrix auxiliar
-		model = modelaux;
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[0]->RenderMesh();
 
-		//articulación 2
-		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion2()), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelaux = model;
-		
-		//dibujar una pequeña esfera
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		// Cabeza
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-3.0f, 3.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		color = glm::vec3(1.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		sp.render();
-		model = modelaux;
-		
-		//segundo brazo
-		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-3.0f, 5.0f, -5.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		color = glm::vec3(0.0f, 0.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-3.0f, 4.5f, -3.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		color = glm::vec3(0.0f, 0.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-4.5f, 3.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.8f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[0]->RenderMesh();
+
+		// Cola
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(3.5f, 1.5f, -4.25f));
+		model = glm::rotate(model, glm::radians(mainWindow.getcola1()), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
-		model = glm::scale(model, glm::vec3(1.0f, 5.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.5f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		color = glm::vec3(0.0f, 1.0f, 0.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		meshList[0]->RenderMesh();
 		model = modelaux;
 
-		//articulación 3 extremo derecho del segundo brazo
-		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion3()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getcola2()), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
-
-		//dibujar una pequeña esfera
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::scale(model, glm::vec3(0.25f, 1.5f, 0.25f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		sp.render();
-		model = modelaux;
-
-		// instancias para completar el brazo y  la cabina 
-		//tercer brazo
-		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelaux = model;
-		model = glm::scale(model, glm::vec3(5.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		color = glm::vec3(1.0f, 1.0f, 0.0f);
+		color = glm::vec3(0.0f, 0.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		meshList[3]->RenderMeshGeometry();
 		model = modelaux;
 
-		//articulación
-		model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion4()), glm::vec3(0.0f, 1.0f, 0.0f));
+		// Patas
+		// -----------------------------------------------------------------------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(2.0f, -1.0f, -2.2f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion1()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion2()), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelaux = model;
 
 		//dibujar una pequeña esfera
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		sp.render();
-		model = modelaux;
-
-		//cabina
-		model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(25.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelaux = model;
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		color = glm::vec3(1.0f, 0.0f, 0.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
-		meshList[0]->RenderMesh(); //dibuja cubo y pirámide triangular
+		sp.render();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		// -----------------------------------------------------------------------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-2.0f, -1.0f, -2.2f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion3()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion4()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+
+		//dibujar una pequeña esfera
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		sp.render();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		// -----------------------------------------------------------------------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-2.0f, -1.0f, -5.7f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion5()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion6()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+
+		//dibujar una pequeña esfera
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		sp.render();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		// -----------------------------------------------------------------------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(2.0f, -1.0f, -5.7f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion7()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getarticulacion8()), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelaux = model;
+
+		//dibujar una pequeña esfera
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		sp.render();
+		model = modelaux;
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.5f, 0.0f));
+		modelaux = model;
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color)); //para cambiar el color del objetos
+		meshList[2]->RenderMeshGeometry();
 		model = modelaux;
 
 		glUseProgram(0);
