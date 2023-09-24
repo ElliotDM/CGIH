@@ -14,11 +14,9 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
-	GLfloat getangulocola() { return angulocola; }
-	GLfloat get_pata_delantera_der() { return pata_delantera_der; }
-	GLfloat get_pata_delantera_izq() { return pata_delantera_izq; }
-	GLfloat get_pata_trasera_der() { return pata_trasera_der; }
-	GLfloat get_pata_trasera_izq() { return pata_trasera_izq; }
+	GLfloat get_angulo_cofre() { return angulo_cofre; }
+	GLfloat get_angulo_rueda() { return angulo_rueda; }
+	GLfloat get_avanzar() { return avanzar; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
@@ -36,11 +34,9 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
-	GLfloat angulocola=0.0f;
-	GLfloat pata_delantera_der=0.0f;
-	GLfloat pata_delantera_izq=0.0f;
-	GLfloat pata_trasera_der=0.0f;
-	GLfloat pata_trasera_izq=0.0f;
+	GLfloat angulo_cofre=0.0f;
+	GLfloat angulo_rueda=0.0f;
+	GLfloat avanzar=0.0f;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);

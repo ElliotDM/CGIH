@@ -93,9 +93,6 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
-
-
-
 void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -113,114 +110,38 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		theWindow-> muevex -= 1.0;
 	}
 
-	if (key == GLFW_KEY_V)
+	if (key == GLFW_KEY_Z)
 	{
-		if (theWindow->angulocola > 40.0)
+		if (theWindow->angulo_cofre > 60.0)
 		{
 		}
 		else
 		{
-			theWindow->angulocola += 10.0;
+			theWindow->angulo_cofre += 10.0;
 		}
 	}
 
-	if (key == GLFW_KEY_B)
+	if (key == GLFW_KEY_X)
 	{
-		if (theWindow->angulocola < -40.0)
+		if (theWindow->angulo_cofre <= 0.0)
 		{
 		}
 		else
 		{
-			theWindow->angulocola -= 10.0;
-		}
-	}
-	
-	if (key == GLFW_KEY_F)
-	{
-		if (theWindow->pata_delantera_der > 40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_delantera_der += 10.0;
-		}
-	}
-
-	if (key == GLFW_KEY_G)
-	{
-		if (theWindow->pata_delantera_der < -40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_delantera_der -= 10.0;
-		}
-	}
-
-	if (key == GLFW_KEY_H)
-	{
-		if (theWindow->pata_delantera_izq > 40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_delantera_izq += 10.0;
-		}
-	}
-
-	if (key == GLFW_KEY_J)
-	{
-		if (theWindow->pata_delantera_izq < -40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_delantera_izq -= 10.0;
-		}
-	}
-
-	if (key == GLFW_KEY_K)
-	{
-		if (theWindow->pata_trasera_der > 40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_trasera_der += 10.0;
-		}
-	}
-
-	if (key == GLFW_KEY_L)
-	{
-		if (theWindow->pata_trasera_der < -40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_trasera_der -= 10.0;
+			theWindow->angulo_cofre -= 10.0;
 		}
 	}
 
 	if (key == GLFW_KEY_N)
 	{
-		if (theWindow->pata_trasera_izq > 40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_trasera_izq += 10.0;
-		}
+		theWindow->angulo_rueda += 10.0;
+		theWindow->avanzar += 1.0;
 	}
 
 	if (key == GLFW_KEY_M)
 	{
-		if (theWindow->pata_trasera_izq < -40.0)
-		{
-		}
-		else
-		{
-			theWindow->pata_trasera_izq -= 10.0;
-		}
+		theWindow->angulo_rueda -= 10.0;
+		theWindow->avanzar -= 1.0;
 	}
 
 	if (key >= 0 && key < 1024)
