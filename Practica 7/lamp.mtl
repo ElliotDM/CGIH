@@ -1,0 +1,92 @@
+# Blender 3.6.2 MTL File: 'None'
+# www.blender.org
+
+newmtl 01___Default
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.588200 0.588200 0.588200
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+newmtl Material__25
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/C:/Users/User/Desktop/-5834822563673521671_121.jpg
+
+newmtl Material__26
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/C:/Users/User/Desktop/-5841549654985127939_121.jpg
+
+newmtl Material__28
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/C:/Users/User/Desktop/-5834822563673521671_121.jpg
+
+newmtl Material__30
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/C:/Users/User/Desktop/2F.JPG
+
+newmtl Material__32
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/D:/3Ds Max FILES/sceneassets/images/Mato/CLOTH21.JPG
+
+newmtl Material__45
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Users/ellio/Downloads/uploads_files_3711615_LAMPA/export/D:/3D/stock models/LAMP/materials/-5834822563673521671_121.jpg
+
+newmtl wire_000000000
+Ns 32.000008
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.350000 0.350000 0.350000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl wire_166229229
+Ns 32.000008
+Ka 1.000000 1.000000 1.000000
+Kd 0.651000 0.898000 0.898000
+Ks 0.350000 0.350000 0.350000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
