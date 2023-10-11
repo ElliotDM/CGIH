@@ -51,6 +51,7 @@ Texture AgaveTexture;
 Texture logofiTexture;
 Texture llantasTexture;
 Texture d8Texture;
+Texture pumpkinTexture;
 
 Model Camino_M;
 Model Blackhawk_M;
@@ -58,6 +59,7 @@ Model Coche;
 Model Llanta;
 Model Cofre;
 Model Lamp_M;
+Model Pumpkin_M;
 
 Skybox skybox;
 
@@ -75,7 +77,10 @@ static double limitFPS = 1.0 / 60.0;
 DirectionalLight mainLight;
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
+PointLight pointLights1[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
+SpotLight spotLights1[MAX_SPOT_LIGHTS];
+SpotLight spotLights2[MAX_SPOT_LIGHTS];
 
 // Vertex Shader
 static const char* vShader = "shaders/shader_light.vert";
@@ -201,37 +206,39 @@ void CrearD8()
 	};
 	GLfloat vertices_d8[] = {
 		//x		y		z		S		T			NX		NY		NZ
+		// Parte superior
 		0.5f, -0.5f,  0.0f,		0.25,   1.0f,		-1.0f,	0.0f,	-1.0f,
 		0.5f,  0.5f,  0.0f,		0.0f,	0.75f,		-1.0f,	0.0f,	-1.0f,
 		0.0f,  0.0f,  0.6f,		0.5f,	0.75f,		-1.0f,	0.0f,	-1.0f,
 
 		0.5f,  0.5f,  0.0f,		0.0f,   0.75f,		0.0f,	-1.0f,	-1.0f,
-	   -0.5f,  0.5f,  0.0f,		0.25f,	0.5f,		0.0f,	-1.0f,	-1.0f,
+	    -0.5f,  0.5f,  0.0f,	0.25f,	0.5f,		0.0f,	-1.0f,	-1.0f,
 		0.0f,  0.0f,  0.6f,		0.5f,	0.75f,		0.0f,	-1.0f,	-1.0f,
 
-	   -0.5f,  0.5f,  0.0f,		0.25,   0.5f,		1.0f,	0.0f,	-1.0f,
-	   -0.5f, -0.5f,  0.0f,		0.75f,	0.5f,		1.0f,	0.0f,	-1.0f,
+	    -0.5f,  0.5f,  0.0f,	0.25,   0.5f,		1.0f,	0.0f,	-1.0f,
+	    -0.5f, -0.5f,  0.0f,	0.75f,	0.5f,		1.0f,	0.0f,	-1.0f,
 		0.0f,  0.0f,  0.6f,		0.5f,	0.75f,		1.0f,	0.0f,	-1.0f,
 
-	   -0.5f, -0.5f,  0.0f,		0.5f,   0.75f,		0.0f,	1.0f,	-1.0f,
-		0.5f, -0.5f,  0.0f,		0.75f,	0.5f,		0.0f,	1.0f,	-1.0f,
-		0.0f,  0.0f,  0.6f,		1.0f,	0.75f,		0.0f,	1.0f,	-1.0f,
+	    -0.5f, -0.5f,  0.0f,	0.75f,  0.5f,		0.0f,	1.0f,	-1.0f,
+		0.5f, -0.5f,  0.0f,		1.0f,	0.75f,		0.0f,	1.0f,	-1.0f,
+		0.0f,  0.0f,  0.6f,		0.5f,	0.75f,		0.0f,	1.0f,	-1.0f,
 
-		 0.5f, -0.5f,  0.0f,	0.25f,   0.0f,		-1.0f,	0.0f,	1.0f,
-		 0.5f,  0.5f,  0.0f,	0.5f,	0.25f,		-1.0f,	0.0f,	1.0f,
-		 0.0f,  0.0f,  -0.6f,	0.0f,	0.25f,		-1.0f,	0.0f,	1.0f,
+		// Parte inferior
+		0.5f, -0.5f,  0.0f,		0.25f,   0.0f,		-1.0f,	0.0f,	1.0f,
+		0.5f,  0.5f,  0.0f,		0.0f,	0.25f,		-1.0f,	0.0f,	1.0f,
+		0.0f,  0.0f,  -0.6f,	0.5f,	0.25f,		-1.0f,	0.0f,	1.0f,
 
-		 0.5f,  0.5f,  0.0f,	0.0f,   0.25f,		0.0f,	-1.0f,	1.0f,
-		 -0.5f,  0.5f,  0.0f,	0.5f,	0.25f,		0.0f,	-1.0f,	1.0f,
-		 0.0f,  0.0f,  -0.6f,	0.25f,	0.5f,		0.0f,	-1.0f,	1.0f,
+		0.5f,  0.5f,  0.0f,		0.0f,   0.25f,		0.0f,	-1.0f,	1.0f,
+		-0.5f,  0.5f,  0.0f,	0.25f,	0.5f,		0.0f,	-1.0f,	1.0f,
+		0.0f,  0.0f,  -0.6f,	0.5f,	0.25f,		0.0f,	-1.0f,	1.0f,
 
-		 -0.5f,  0.5f,  0.0f,	0.25,   0.5f,		1.0f,	0.0f,	1.0f,
-		 -0.5f, -0.5f,  0.0f,	0.5f,	0.25f,		1.0f,	0.0f,	1.0f,
-		 0.0f,  0.0f,  -0.6f,	0.75f,	0.5f,		1.0f,	0.0f,	1.0f,
+		-0.5f,  0.5f,  0.0f,	0.25,   0.5f,		1.0f,	0.0f,	1.0f,
+		-0.5f, -0.5f,  0.0f,	0.75f,	0.5f,		1.0f,	0.0f,	1.0f,
+		0.0f,  0.0f,  -0.6f,	0.5f,	0.25f,		1.0f,	0.0f,	1.0f,
 
-		 -0.5f, -0.5f,  0.0f,	0.75f,  0.5f,		0.0f,	1.0f,	1.0f,
-		 0.5f, -0.5f,  0.0f,	0.5f,	0.25f,		0.0f,	1.0f,	1.0f,
-		 0.0f,  0.0f,  -0.6f,	1.0f,	0.25f,		0.0f,	1.0f,	1.0f
+		-0.5f, -0.5f,  0.0f,	0.75f,  0.5f,		0.0f,	1.0f,	1.0f,
+		0.5f, -0.5f,  0.0f,		1.0f,	0.25f,		0.0f,	1.0f,	1.0f,
+		0.0f,  0.0f,  -0.6f,	0.5f,	0.25f,		0.0f,	1.0f,	1.0f
 
 	};
 
@@ -285,6 +292,8 @@ int main()
 	Llanta.LoadModel("Models/llanta_con_rin.obj");
 	Cofre = Model();
 	Cofre.LoadModel("Models/cofre.obj");
+	Pumpkin_M = Model();
+	Pumpkin_M.LoadModel("Models/Halloween_Pumpkin.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -306,24 +315,37 @@ int main()
 
 	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
+
+	// PointLight de la lampara
 	pointLights[0] = PointLight(1.0f, 1.0f, 1.0f,
 		0.0f, 1.0f,
-		5.0f, 2.0f, -4.0,
-		0.3f, 0.2f, 0.1f);
+		5.0f, 1.5f, -4.0,
+		1.0f, 0.2f, 0.1f);
 	pointLightCount++;
+
+	// PointLight de la calabaza
+	pointLights[1] = PointLight(1.0f, 0.502f, 0.0f,
+		0.0f, 1.0f,
+		8.0f, 0.0f, -4.0f,
+		1.0f, 0.2f, 0.1f);
+	pointLightCount++;
+
+	pointLights1[0] = pointLights[1];
+	pointLights1[1] = pointLights[0];
 
 	//contador de luces spotlight
 	unsigned int spotLightCount = 0;
 
-	//se crean mas luces puntuales y spotlight 
-	spotLights[0] = SpotLight(0.0f, 0.0f, 1.0f,
-		1.0f, 2.0f,
-		2.0f, 0.5f, -3.0f,
-		-1.0f, 0.0f, 0.0f,
+	// Linterna
+	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		5.0f);
 	spotLightCount++;
 
+	// SpotLight del helicoptero
 	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
 		1.0f, 2.0f,
 		2.0f, 5.0f, 6.0f,
@@ -332,14 +354,33 @@ int main()
 		15.0f);
 	spotLightCount++;
 
-	//linterna
-	spotLights[2] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
+	// SpotLight delantera del coche
+	spotLights[2] = SpotLight(0.0f, 0.0f, 1.0f,
+		1.0f, 2.0f,
+		2.0f, 0.4f, 0.0f,
+		-1.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		5.0f);
 	spotLightCount++;
+
+	// SpotLight trasera del coche
+	spotLights[3] = SpotLight(1.0f, 0.0f, 0.0f,
+		1.0f, 2.0f,
+		-6.0f, 0.4f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		5.0f);
+	spotLightCount++;
+
+	spotLights1[0] = spotLights[0]; // Linterna
+	spotLights1[1] = spotLights[2]; // Luz delantera
+	spotLights1[2] = spotLights[1]; // Helicoptero
+	spotLights1[3] = spotLights[3]; // Luz trasera
+
+	spotLights2[0] = spotLights[0]; // Linterna
+	spotLights2[1] = spotLights[3]; // Luz trasera
+	spotLights2[2] = spotLights[1]; // Helicoptero
+	spotLights2[3] = spotLights[2]; // Luz delantera
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
@@ -384,11 +425,9 @@ int main()
 		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
-		spotLights[2].SetFlash(lowerLight, camera.getCameraDirection());
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
 		glm::mat4 modelaux(1.0);
@@ -408,7 +447,9 @@ int main()
 		//Instancia del coche 
 		// Carroceria
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f + mainWindow.getmueveCarro()));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f + mainWindow.getmueveCarro()));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		modelaux = model;
 		color = glm::vec3(0.0f, 0.0f, 0.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
@@ -451,13 +492,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta.RenderModel();
 
-		//3.- crear luz spotlight delantera del faro del coche de color azul.
-		glm::vec3 carPosition = glm::vec3(8.0f, 0.4f, 0.0f);
-		carPosition.x += mainWindow.getmueveCarro();
-		spotLights[0].SetPos(carPosition);
-
 		// Helicoptero
-		// 1.-Agregar movimiento con teclado al helicóptero hacia adelante y atrás.
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
@@ -466,24 +501,108 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Blackhawk_M.RenderModel();
 
-		//2. - crear luz spotlight de helicóptero de color amarilla que apunte hacia el piso.
-		glm::vec3 helicopterPosition = glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f);
-		spotLights[1].SetPos(helicopterPosition);
-
-		//4.- Importar 1 modelos de lámpara y crearle luz puntual blanca.
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(5.0f, 1.0f, -4.0));
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lamp_M.RenderModel();
-
-		if (mainWindow.getlampara() == true)
+		// Luz delantera del coche
+		if (mainWindow.getLuzDelantera() == true)
 		{
-			shaderList[0].SetPointLights(pointLights, pointLightCount);
+			// Mostrar linterna
+			spotLights1[0].SetFlash(lowerLight, camera.getCameraDirection());
+
+			// Mostrar luz delantera
+			glm::vec3 carPosition = glm::vec3(6.0f, 0.4f, 0.0f);
+			carPosition.x -= mainWindow.getmueveCarro();
+			spotLights1[1].SetPos(carPosition);
+
+			// Mostrar luz helicoptero
+			glm::vec3 helicopterPosition = glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f);
+			spotLights1[2].SetPos(helicopterPosition);
+
+			if ((int)now % 2 == 0)
+			{
+				shaderList[0].SetSpotLights(spotLights1, spotLightCount - 1);
+			}
+			else
+			{
+				shaderList[0].SetSpotLights(spotLights1, spotLightCount - 2);
+			}
+		} 
+		// Luz trasera del coche
+		else if (mainWindow.getLuzTrasera() == true)
+		{
+			// Mostrar linterna
+			spotLights2[0].SetFlash(lowerLight, camera.getCameraDirection());
+
+			// Mostrar luz trasera
+			glm::vec3 carPosition = glm::vec3(7.0f, 0.4f, 0.0f);
+			carPosition.x -= mainWindow.getmueveCarro();
+			spotLights2[1].SetPos(carPosition);
+
+			// Mostrar luz helicoptero
+			glm::vec3 helicopterPosition = glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f);
+			spotLights2[2].SetPos(helicopterPosition);
+			
+			if ((int)now % 2 == 0)
+			{
+				shaderList[0].SetSpotLights(spotLights2, spotLightCount - 1);
+			}
+			else
+			{
+				shaderList[0].SetSpotLights(spotLights2, spotLightCount - 2);
+			}
 		}
 		else
 		{
+			if ((int)now % 2 == 0)
+			{
+				glm::vec3 helicopterPosition = glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f);
+				spotLights[1].SetPos(helicopterPosition);
+
+				spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+				shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
+				
+			}
+			else
+			{
+				glm::vec3 helicopterPosition = glm::vec3(0.0f + mainWindow.getmueveHeli(), 5.0f, 6.0f);
+				spotLights[1].SetPos(helicopterPosition);
+
+				spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+				shaderList[0].SetSpotLights(spotLights, spotLightCount - 3);
+			}
+		}
+
+		// Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(5.0f, 0.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lamp_M.RenderModel();
+
+		// Calabaza
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(8.0f, -1.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pumpkin_M.RenderModel();
+
+		// Lampara 0	Calabaza 0
+		if (mainWindow.getlampara() == false and mainWindow.getcalabaza() == false)
+		{
+			shaderList[0].SetPointLights(pointLights, pointLightCount - 2);
+		}
+		// Lampara 0	Calabaza 1
+		else if (mainWindow.getlampara() == false and mainWindow.getcalabaza() == true)
+		{
+			shaderList[0].SetPointLights(pointLights1, pointLightCount - 1);
+		}
+		// Lampara 1	Calabaza 0
+		else if (mainWindow.getlampara() == true and mainWindow.getcalabaza() == false)
+		{
 			shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
+		}
+		// Lampara 1	Calabaza 1
+		else if (mainWindow.getlampara() == true and mainWindow.getcalabaza() == true)
+		{
+			shaderList[0].SetPointLights(pointLights, pointLightCount);
 		}
 
 		// Dado
@@ -492,7 +611,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		d8Texture.UseTexture();
 		meshList[4]->RenderMesh();
-
 
 		//Agave ¿qué sucede si lo renderizan antes del coche y el helicóptero?
 		model = glm::mat4(1.0);

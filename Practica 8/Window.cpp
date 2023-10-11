@@ -1,4 +1,4 @@
-﻿#include "Window.h"
+#include "Window.h"
 
 Window::Window()
 {
@@ -17,6 +17,9 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	mueveHeli = 2.0f;
 	angulo_cofre = 0.0f;
 	lampara = false;
+	calabaza = false;
+	luzDelantera = false;
+	luzTrasera = false;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -24,22 +27,22 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 }
 int Window::Initialise()
 {
-	//Inicializaci�n de GLFW
+	// Inicializaci�n de GLFW
 	if (!glfwInit())
 	{
 		printf("Fall� inicializar GLFW");
 		glfwTerminate();
 		return 1;
 	}
-	//Asignando variables de GLFW y propiedades de ventana
+	// Asignando variables de GLFW y propiedades de ventana
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//para solo usar el core profile de OpenGL y no tener retrocompatibilidad
+	// para solo usar el core profile de OpenGL y no tener retrocompatibilidad
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica07:Iluminacion 1", NULL, NULL);
+	// CREAR VENTANA
+	mainWindow = glfwCreateWindow(width, height, "PracticaXX:Nombre de la practica", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -47,17 +50,16 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-	//Obtener tama�o de Buffer
+	// Obtener tama�o de Buffer
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
-	//asignar el contexto
+	// asignar el contexto
 	glfwMakeContextCurrent(mainWindow);
 
-	//MANEJAR TECLADO y MOUSE
+	// MANEJAR TECLADO y MOUSE
 	createCallbacks();
 
-
-	//permitir nuevas extensiones
+	// permitir nuevas extensiones
 	glewExperimental = GL_TRUE;
 
 	if (glewInit() != GLEW_OK)
@@ -68,12 +70,12 @@ int Window::Initialise()
 		return 1;
 	}
 
-	glEnable(GL_DEPTH_TEST); //HABILITAR BUFFER DE PROFUNDIDAD
-	// Asignar valores de la ventana y coordenadas
+	glEnable(GL_DEPTH_TEST); // HABILITAR BUFFER DE PROFUNDIDAD
+							 //  Asignar valores de la ventana y coordenadas
 
-	//Asignar Viewport
+	// Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
-	//Callback para detectar que se est� usando la ventana
+	// Callback para detectar que se est� usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
@@ -96,12 +98,9 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
-
-
-
-void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
+void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode)
 {
-	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	Window *theWindow = static_cast<Window *>(glfwGetWindowUserPointer(window));
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
@@ -110,16 +109,40 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_Y)
 	{
 		theWindow->mueveCarro += 1.0;
+		theWindow->luzDelantera = true;
+		theWindow->luzTrasera = false;
 	}
 	if (key == GLFW_KEY_U)
 	{
 		theWindow->mueveCarro -= 1.0;
+		theWindow->luzDelantera = false;
+		theWindow->luzTrasera = true;
 	}
-	if (key == GLFW_KEY_N)
+	if (key == GLFW_KEY_Z)
+	{
+		if (theWindow->angulo_cofre > 60.0)
+		{
+		}
+		else
+		{
+			theWindow->angulo_cofre += 10.0;
+		}
+	}
+	if (key == GLFW_KEY_X)
+	{
+		if (theWindow->angulo_cofre <= 0.0)
+		{
+		}
+		else
+		{
+			theWindow->angulo_cofre -= 10.0;
+		}
+	}
+	if (key == GLFW_KEY_M)
 	{
 		theWindow->mueveHeli += 1.0;
 	}
-	if (key == GLFW_KEY_M)
+	if (key == GLFW_KEY_N)
 	{
 		theWindow->mueveHeli -= 1.0;
 	}
@@ -131,27 +154,13 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->lampara = false;
 	}
-
-	if (key == GLFW_KEY_Z)
+	if (key == GLFW_KEY_V)
 	{
-		if (theWindow->angulo_cofre > 60.0)
-		{
-		}
-		else
-		{
-			theWindow->angulo_cofre += 10.0;
-		}
+		theWindow->calabaza = true;
 	}
-
-	if (key == GLFW_KEY_X)
+	if (key == GLFW_KEY_B)
 	{
-		if (theWindow->angulo_cofre <= 0.0)
-		{
-		}
-		else
-		{
-			theWindow->angulo_cofre -= 10.0;
-		}
+		theWindow->calabaza = false;
 	}
 
 	if (key >= 0 && key < 1024)
@@ -159,19 +168,19 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		if (action == GLFW_PRESS)
 		{
 			theWindow->keys[key] = true;
-			//printf("se presiono la tecla %d'\n", key);
+			// printf("se presiono la tecla %d'\n", key);
 		}
 		else if (action == GLFW_RELEASE)
 		{
 			theWindow->keys[key] = false;
-			//printf("se solto la tecla %d'\n", key);
+			// printf("se solto la tecla %d'\n", key);
 		}
 	}
 }
 
-void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
+void Window::ManejaMouse(GLFWwindow *window, double xPos, double yPos)
 {
-	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	Window *theWindow = static_cast<Window *>(glfwGetWindowUserPointer(window));
 
 	if (theWindow->mouseFirstMoved)
 	{
@@ -187,10 +196,8 @@ void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 	theWindow->lastY = yPos;
 }
 
-
 Window::~Window()
 {
 	glfwDestroyWindow(mainWindow);
 	glfwTerminate();
-
 }
