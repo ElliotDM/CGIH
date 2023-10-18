@@ -23,22 +23,22 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 }
 int Window::Initialise()
 {
-	//Inicializaci�n de GLFW
+	// Inicializaci�n de GLFW
 	if (!glfwInit())
 	{
 		printf("Fall� inicializar GLFW");
 		glfwTerminate();
 		return 1;
 	}
-	//Asignando variables de GLFW y propiedades de ventana
+	// Asignando variables de GLFW y propiedades de ventana
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//para solo usar el core profile de OpenGL y no tener retrocompatibilidad
+	// para solo usar el core profile de OpenGL y no tener retrocompatibilidad
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica07:Iluminacion 1", NULL, NULL);
+	// CREAR VENTANA
+	mainWindow = glfwCreateWindow(width, height, "Practica 09: Animacion Basica", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -46,17 +46,16 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-	//Obtener tama�o de Buffer
+	// Obtener tama�o de Buffer
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
-	//asignar el contexto
+	// asignar el contexto
 	glfwMakeContextCurrent(mainWindow);
 
-	//MANEJAR TECLADO y MOUSE
+	// MANEJAR TECLADO y MOUSE
 	createCallbacks();
 
-
-	//permitir nuevas extensiones
+	// permitir nuevas extensiones
 	glewExperimental = GL_TRUE;
 
 	if (glewInit() != GLEW_OK)
@@ -67,12 +66,12 @@ int Window::Initialise()
 		return 1;
 	}
 
-	glEnable(GL_DEPTH_TEST); //HABILITAR BUFFER DE PROFUNDIDAD
+	glEnable(GL_DEPTH_TEST); // HABILITAR BUFFER DE PROFUNDIDAD
 	// Asignar valores de la ventana y coordenadas
 
-	//Asignar Viewport
+	// Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
-	//Callback para detectar que se est� usando la ventana
+	// Callback para detectar que se est� usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
@@ -95,18 +94,15 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
-
-
-
-void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
+void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode)
 {
-	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	Window *theWindow = static_cast<Window *>(glfwGetWindowUserPointer(window));
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-	
+
 	if (key == GLFW_KEY_C)
 	{
 		theWindow->moneda = true;
@@ -117,19 +113,19 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		if (action == GLFW_PRESS)
 		{
 			theWindow->keys[key] = true;
-			//printf("se presiono la tecla %d'\n", key);
+			// printf("se presiono la tecla %d'\n", key);
 		}
 		else if (action == GLFW_RELEASE)
 		{
 			theWindow->keys[key] = false;
-			//printf("se solto la tecla %d'\n", key);
+			// printf("se solto la tecla %d'\n", key);
 		}
 	}
 }
 
-void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
+void Window::ManejaMouse(GLFWwindow *window, double xPos, double yPos)
 {
-	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	Window *theWindow = static_cast<Window *>(glfwGetWindowUserPointer(window));
 
 	if (theWindow->mouseFirstMoved)
 	{
@@ -145,10 +141,8 @@ void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 	theWindow->lastY = yPos;
 }
 
-
 Window::~Window()
 {
 	glfwDestroyWindow(mainWindow);
 	glfwTerminate();
-
 }

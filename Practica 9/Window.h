@@ -1,7 +1,7 @@
 #pragma once
-#include<stdio.h>
-#include<glew.h>
-#include<glfw3.h>
+#include <stdio.h>
+#include <glew.h>
+#include <glfw3.h>
 
 class Window
 {
@@ -14,15 +14,18 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLboolean getMoneda() { return moneda; }
-	bool getShouldClose() {
-		return  glfwWindowShouldClose(mainWindow);
+	GLvoid setMoneda(GLboolean m) { moneda = m; }
+	bool getShouldClose()
+	{
+		return glfwWindowShouldClose(mainWindow);
 	}
-	bool* getsKeys() { return keys; }
+	bool *getsKeys() { return keys; }
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
 
 	~Window();
+
 private:
-	GLFWwindow* mainWindow;
+	GLFWwindow *mainWindow;
 	GLint width, height;
 	bool keys[1024];
 	GLint bufferWidth, bufferHeight;
@@ -31,9 +34,8 @@ private:
 	GLfloat lastY;
 	GLfloat xChange;
 	GLfloat yChange;
-	GLboolean moneda;
+	GLboolean moneda = false;
 	bool mouseFirstMoved;
-	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
-	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
-
+	static void ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode);
+	static void ManejaMouse(GLFWwindow *window, double xPos, double yPos);
 };

@@ -1,13 +1,13 @@
 /*
 Semestre 2024-1
-Animaci髇:
-Sesi髇 1:
-Simple o b醩ica:Por banderas y condicionales (m醩 de 1 transforomaci髇 geom閠rica se ve modificada
-Sesi髇 2
+Animaci贸n:
+Sesi贸n 1:
+Simple o b谩sica:Por banderas y condicionales (m谩s de 1 transforomaci贸n geom茅trica se ve modificada
+Sesi贸n 2
 Compleja: Por medio de funciones y algoritmos.
 Adicional.- ,Textura Animada
 */
-//para cargar imagen
+// para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <stdio.h>
@@ -22,8 +22,6 @@ Adicional.- ,Textura Animada
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
-//para probar el importer
-//#include<assimp/Importer.hpp>
 
 #include "Window.h"
 #include "Mesh.h"
@@ -31,25 +29,30 @@ Adicional.- ,Textura Animada
 #include "Camera.h"
 #include "Texture.h"
 #include "Sphere.h"
-#include"Model.h"
+#include "Model.h"
 #include "Skybox.h"
 
-//para iluminaci髇
+// para iluminaci贸n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Material.h"
+
 const float toRadians = 3.14159265f / 180.0f;
 
-//variables para animaci髇
-float movCoche;
-float movOffset;
-float rotllanta;
-float rotllantaOffset;
-bool avanza;
+// variables para animaci贸n
+float mov_moneda;
+float movy_canica;
+float movz_canica;
+float rot_moneda;
+float rot_canica;
+float rot_offset;
+float mov_offset;
+bool canica;
+
 Window mainWindow;
-std::vector<Mesh*> meshList;
+std::vector<Mesh *> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
@@ -58,42 +61,40 @@ Texture brickTexture;
 Texture dirtTexture;
 Texture plainTexture;
 Texture pisoTexture;
-Texture AgaveTexture;
+Texture monedaTexture;
+Texture gabineteTexture;
+Texture canicaTexture;
 
-Model Kitt_M;
-Model Llanta_M;
-Model Blackhawk_M;
 Model Gabinete_M;
 Model Moneda_M;
 Model Canica_M;
+Model Resorte_M;
 
 Skybox skybox;
 
-//materiales
+// materiales
 Material Material_brillante;
 Material Material_opaco;
 
-
-//Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
 
 // luz direccional
 DirectionalLight mainLight;
-//para declarar varias luces de tipo pointlight
+// para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 // Vertex Shader
-static const char* vShader = "shaders/shader_light.vert";
+static const char *vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
-static const char* fShader = "shaders/shader_light.frag";
+static const char *fShader = "shaders/shader_light.frag";
 
-//funci髇 de calculo de normales por promedio de v閞tices 
-void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
-	unsigned int vLength, unsigned int normalOffset)
+// funci贸n de calculo de normales por promedio de v茅rtices
+void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount,
+						unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -105,10 +106,10 @@ void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat
 		glm::vec3 normal = glm::cross(v1, v2);
 		normal = glm::normalize(normal);
 
-		in0 += normalOffset; in1 += normalOffset; in2 += normalOffset;
-		vertices[in0] += normal.x; vertices[in0 + 1] += normal.y; vertices[in0 + 2] += normal.z;
-		vertices[in1] += normal.x; vertices[in1 + 1] += normal.y; vertices[in1 + 2] += normal.z;
-		vertices[in2] += normal.x; vertices[in2 + 1] += normal.y; vertices[in2 + 2] += normal.z;
+		in0 += normalOffset;in1 += normalOffset;in2 += normalOffset;
+		vertices[in0] += normal.x;vertices[in0 + 1] += normal.y;vertices[in0 + 2] += normal.z;
+		vertices[in1] += normal.x;vertices[in1 + 1] += normal.y;vertices[in1 + 2] += normal.z;
+		vertices[in2] += normal.x;vertices[in2 + 1] += normal.y;vertices[in2 + 2] += normal.z;
 	}
 
 	for (size_t i = 0; i < verticeCount / vLength; i++)
@@ -116,7 +117,9 @@ void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat
 		unsigned int nOffset = i * vLength + normalOffset;
 		glm::vec3 vec(vertices[nOffset], vertices[nOffset + 1], vertices[nOffset + 2]);
 		vec = glm::normalize(vec);
-		vertices[nOffset] = vec.x; vertices[nOffset + 1] = vec.y; vertices[nOffset + 2] = vec.z;
+		vertices[nOffset] = vec.x;
+		vertices[nOffset + 1] = vec.y;
+		vertices[nOffset + 2] = vec.z;
 	}
 }
 
@@ -194,7 +197,7 @@ void CreateObjects()
 
 void CreateShaders()
 {
-	Shader* shader1 = new Shader();
+	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -217,24 +220,21 @@ int main()
 	plainTexture.LoadTextureA();
 	pisoTexture = Texture("Textures/piso.tga");
 	pisoTexture.LoadTextureA();
-	AgaveTexture = Texture("Textures/Agave.tga");
-	AgaveTexture.LoadTextureA();
+	monedaTexture = Texture("Textures/moneda.png");
+	monedaTexture.LoadTextureA();
+	gabineteTexture = Texture("Textures/pinball.tga");
+	gabineteTexture.LoadTextureA();
+	canicaTexture = Texture("Textures/canica.png");
+	canicaTexture.LoadTextureA();
 
-	Kitt_M = Model();
-	Kitt_M.LoadModel("Models/kitt_optimizado.obj");
-	Llanta_M = Model();
-	Llanta_M.LoadModel("Models/llanta_optimizada.obj");
-	Blackhawk_M = Model();
-	Blackhawk_M.LoadModel("Models/uh60.obj");
-	
-	// Modelos para el Pinball
 	Gabinete_M = Model();
-	Gabinete_M.LoadModel("Models/gabinete.obj");
+	Gabinete_M.LoadModel("Models/pinball.obj");
 	Moneda_M = Model();
-	Moneda_M.LoadModel("Models/Coin.obj");
+	Moneda_M.LoadModel("Models/moneda.obj");
 	Canica_M = Model();
-	Canica_M.LoadModel("Models/Marble.obj");
-
+	Canica_M.LoadModel("Models/canica.obj");
+	Resorte_M = Model();
+	Resorte_M.LoadModel("Models/resorte.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -249,47 +249,30 @@ int main()
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
 
-
-	//luz direccional, s髄o 1 y siempre debe de existir
+	// luz direccional, s贸lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+								 0.3f, 0.3f,
+								 0.0f, 0.0f, -1.0f);
 
-	//contador de luces puntuales
+	// contador de luces puntuales
 	unsigned int pointLightCount = 0;
-
-	//Declaraci髇 de primer luz puntual
-	//pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-	//	0.0f, 1.0f,
-	//	-6.0f, 1.5f, 1.5f,
-	//	0.3f, 0.2f, 0.1f);
-	//pointLightCount++;
 
 	unsigned int spotLightCount = 0;
 
-	//linterna
-	//spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-	//	0.0f, 2.0f,
-	//	0.0f, 0.0f, 0.0f,
-	//	0.0f, -1.0f, 0.0f,
-	//	1.0f, 0.0f, 0.0f,
-	//	5.0f);
-	//spotLightCount++;
-
-	//luz fija
-	//spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
-	//	1.0f, 2.0f,
-	//	5.0f, 10.0f, 0.0f,
-	//	0.0f, -5.0f, 0.0f,
-	//	1.0f, 0.0f, 0.0f,
-	//	15.0f);
-	//spotLightCount++;
-
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		uniformSpecularIntensity = 0, uniformShininess = 0;
+		   uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
+	mov_moneda = -1.8f;
+	movy_canica = 11.0f;
+	movz_canica = -12.0f;
+	rot_moneda = 0.0f;
+	rot_canica = 0.0f;
+	mov_offset = 0.03f;
+	rot_offset = 2.0f;
+	canica = false;
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -298,9 +281,7 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 
-		
-
-		//Recibir eventos del usuario
+		// Recibir eventos del usuario
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
@@ -316,7 +297,7 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
 
-		//informaci髇 en el shader de intensidad especular y brillo
+		// informaci贸n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
@@ -324,13 +305,7 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-		// luz ligada a la c醡ara de tipo flash
-		//sirve para que en tiempo de ejecuci髇 (dentro del while) se cambien propiedades de la luz
-		/*glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());*/
-
-		//informaci髇 al shader de fuentes de iluminaci髇
+		// informaci贸n al shader de fuentes de iluminaci贸n
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
@@ -340,11 +315,10 @@ int main()
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -31.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -26.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-
 		pisoTexture.UseTexture();
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
@@ -353,33 +327,72 @@ int main()
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0, 0.5f, -28.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Gabinete_M.RenderModel();
 
+		// Animacion
+		if (mainWindow.getMoneda())
+		{
+			if (mov_moneda > -5.0)
+			{
+				mov_moneda -= mov_offset * deltaTime;
+				rot_moneda += rot_offset * deltaTime;
+			}
+			else {
+				mainWindow.setMoneda(false);
+				canica = true;
+			}
+		}
+		else if(canica)
+		{
+			// Canica
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(10.0f, movy_canica, movz_canica));
+			model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+			model = glm::rotate(model, rot_canica * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			Canica_M.RenderModel();
+
+			if (movz_canica < -9.5)
+			{
+				movy_canica -= mov_offset * deltaTime/2;
+				movz_canica += mov_offset * deltaTime;
+				rot_canica += rot_offset * deltaTime;
+			}
+			else
+			{
+				movy_canica = 11.0f;
+				movz_canica = -12.0f;
+				canica = false;
+			}
+		}
+		else
+		{
+			if (mov_moneda <= -5.0)
+			{
+				mov_moneda = -1.8;
+			}
+		}
+
 		// Moneda
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(7.5f, 2.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-3.65f, 8.0f, mov_moneda));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rot_moneda * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Moneda_M.RenderModel();
 
-		if (mainWindow.getMoneda())
-		{
-			// Do something
-			
-		}
-
-		//blending: transparencia o traslucidez
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		AgaveTexture.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		meshList[3]->RenderMesh();
-		glDisable(GL_BLEND);
+		// Resorte
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(10.0f, 9.5f, -7.5f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		model = glm::rotate(model, -70 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Resorte_M.RenderModel();
 
 		glUseProgram(0);
-
 		mainWindow.swapBuffers();
 	}
 
