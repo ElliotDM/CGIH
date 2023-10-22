@@ -13,8 +13,8 @@ public:
 	GLfloat getBufferHeight() { return bufferHeight; }
 	GLfloat getXChange();
 	GLfloat getYChange();
-	GLboolean getMoneda() { return moneda; }
-	GLvoid setMoneda(GLboolean m) { moneda = m; }
+	GLboolean getTirada() { return dado; }
+	GLvoid setTirada(GLboolean tirar) { dado = tirar; }
 	bool getShouldClose()
 	{
 		return glfwWindowShouldClose(mainWindow);
@@ -34,7 +34,7 @@ private:
 	GLfloat lastY;
 	GLfloat xChange;
 	GLfloat yChange;
-	GLboolean moneda = false;
+	GLboolean dado = false;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow *window, double xPos, double yPos);

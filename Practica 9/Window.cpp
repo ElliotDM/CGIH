@@ -14,7 +14,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 
-	moneda = false;
+	dado = false;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -103,9 +103,9 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	if (key == GLFW_KEY_C)
+	if (key == GLFW_KEY_T)
 	{
-		theWindow->moneda = true;
+		theWindow->dado = true;
 	}
 
 	if (key >= 0 && key < 1024)
